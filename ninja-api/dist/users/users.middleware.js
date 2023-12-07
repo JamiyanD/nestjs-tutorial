@@ -6,21 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersModule = void 0;
+exports.UsersMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
-const users_controller_1 = require("./users.controller");
-const users_middleware_1 = require("./users.middleware");
-let UsersModule = class UsersModule {
-    configure(consumer) {
-        consumer.apply(users_middleware_1.UsersMiddleware).forRoutes('users');
+let UsersMiddleware = class UsersMiddleware {
+    use(req, res, next) {
+        console.log('Middleware');
+        const { authorization } = req.headers;
+        if (!authorization)
+            throw new common_1.HttpException('No Authorization Token', common_1.HttpStatus.FORBIDDEN);
+        if (authorization === 'hha')
+            next();
+        else
+            throw new common_1.HttpException('No Authorization Token', common_1.HttpStatus.FORBIDDEN);
     }
 };
-exports.UsersModule = UsersModule;
-exports.UsersModule = UsersModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService],
-    })
-], UsersModule);
-//# sourceMappingURL=users.module.js.map
+exports.UsersMiddleware = UsersMiddleware;
+exports.UsersMiddleware = UsersMiddleware = __decorate([
+    (0, common_1.Injectable)()
+], UsersMiddleware);
+//# sourceMappingURL=users.middleware.js.map

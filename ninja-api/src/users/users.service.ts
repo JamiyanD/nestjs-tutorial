@@ -4,15 +4,23 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
+
+  private fakeUsers = [
+    {username: 'Anson', email: 'anson@gmail.com'},
+    {username: 'Cory', email: 'cory@gmail.com'},
+    {username: 'Greg', email: 'greg@gmail.com'},
+  ]
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    this.fakeUsers.push(createUserDto)
+    return {};
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.fakeUsers;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} user`;
   }
 
