@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 let UsersGuard = class UsersGuard {
     canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        return false;
+        return true;
     }
 };
 exports.UsersGuard = UsersGuard;

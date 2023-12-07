@@ -10,16 +10,7 @@ exports.ValidateCreateUserPipe = void 0;
 const common_1 = require("@nestjs/common");
 let ValidateCreateUserPipe = class ValidateCreateUserPipe {
     transform(value, metadata) {
-        console.log(value);
-        console.log('Inside pipe');
-        console.log(metadata);
-        const parseAgtoInt = parseInt(value.age.toString());
-        if (isNaN(parseAgtoInt)) {
-            console.log(`${value.age} is not a number`);
-            throw new common_1.HttpException('Invalid Data Type for', common_1.HttpStatus.BAD_REQUEST);
-        }
-        console.log(`${value.age} is  a number`);
-        return { ...value, age: parseAgtoInt };
+        return value;
     }
 };
 exports.ValidateCreateUserPipe = ValidateCreateUserPipe;

@@ -9,19 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserDto = void 0;
-const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
-class CreateUserDto {
-}
-exports.CreateUserDto = CreateUserDto;
+exports.User = void 0;
+const typeorm_1 = require("typeorm");
+let User = class User {
+};
+exports.User = User;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.MinLength)(3),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "username", void 0);
+    (0, typeorm_1.PrimaryGeneratedColumn)({
+        type: 'bigint',
+    }),
+    __metadata("design:type", Number)
+], User.prototype, "id", void 0);
 __decorate([
-    (0, class_transformer_1.Exclude)(),
+    (0, typeorm_1.Column)({
+        nullable: false,
+        default: ''
+    }),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
-//# sourceMappingURL=create-user.dto.js.map
+], User.prototype, "username", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        nullable: false,
+        default: ''
+    }),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        nullable: false,
+        default: '',
+    }),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+exports.User = User = __decorate([
+    (0, typeorm_1.Entity)()
+], User);
+//# sourceMappingURL=User.js.map

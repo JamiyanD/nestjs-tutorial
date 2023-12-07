@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User as UserEntity } from 'src/typeorm';
 
 @Injectable()
 export class UsersService {
+  constructor(@InjectRepository(UserEntity) 
+  private readonly userRepository: Repository<UserEntity>
+  ) {
 
+  }
   private fakeUsers = [
-    {username: 'Anson', email: 'anson@gmail.com'},
-    {username: 'Cory', email: 'cory@gmail.com'},
-    {username: 'Greg', email: 'greg@gmail.com'},
+    { username: 'Anson', password: 'anson'},
+    { username: 'Cory', password: 'cory'},
+    { username: 'Greg', password: 'greg'},
   ]
 
   create(createUserDto: CreateUserDto) {
-    this.fakeUsers.push(createUserDto)
-    return {};
+   const newUser = this.userRepository.create(createUserDto)
+    return this.userRepository.save(newUser);
   }
 
   findAll() {
@@ -30,5 +37,10 @@ export class UsersService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  getUserById(id: number) {
+    // return this.fakeUsers.find((user) => user.id === id)
+    
   }
 }

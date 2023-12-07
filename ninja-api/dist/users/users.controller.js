@@ -19,12 +19,13 @@ const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const validate_create_user_pipe_1 = require("./validate-create-user/validate-create-user.pipe");
 const users_guard_1 = require("./users.guard");
+const HttpException_filter_1 = require("./filters/HttpException.filter");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
     create(createUserDto) {
-        console.log(createUserDto.age.toPrecision());
+        console.log(createUserDto);
         return this.usersService.create(createUserDto);
     }
     findAll() {
@@ -41,6 +42,8 @@ let UsersController = class UsersController {
     }
     remove(id) {
         return this.usersService.remove(+id);
+    }
+    getById(id) {
     }
 };
 exports.UsersController = UsersController;
@@ -81,6 +84,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
+__decorate([
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
+    (0, common_1.UseFilters)(HttpException_filter_1.HttpExceptionFilter),
+    (0, common_1.Get)('id/:id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getById", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe, Query, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe, Query, HttpException, HttpStatus, UseGuards, UseInterceptors, ClassSerializerInterceptor, GoneException, UseFilters } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ValidateCreateUserPipe } from './validate-create-user/validate-create-user.pipe';
 import { UsersGuard } from './users.guard';
+import { UserNotFoundException } from './exceptions/UserNotFound.exception';
+import { HttpExceptionFilter } from './filters/HttpException.filter';
 
 @Controller('users')
 export class UsersController {
@@ -12,7 +14,7 @@ export class UsersController {
   @Post()
   @UsePipes(new ValidationPipe())
   create(@Body(ValidateCreateUserPipe) createUserDto: CreateUserDto) {
-    console.log(createUserDto.age.toPrecision())
+    console.log(createUserDto)
     return this.usersService.create(createUserDto);
   }
 
@@ -37,5 +39,16 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseFilters(HttpExceptionFilter)
+  @Get('id/:id')
+  getById(@Param('id', ParseIntPipe) id: number) {
+    // const user = this.usersService.getUserById(id)
+    // if (user) return  user
+    // else {
+    //   throw new UserNotFoundException();
+    // }
   }
 }
