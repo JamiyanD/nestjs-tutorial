@@ -5,6 +5,7 @@ import { NinjasModule } from './ninjas/ninjas.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities, { User } from './typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [NinjasModule, UsersModule, TypeOrmModule.forRoot({
@@ -16,7 +17,7 @@ import entities, { User } from './typeorm';
     database: 'nestjs',
     entities,
     synchronize: true
-  })],
+  }), AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

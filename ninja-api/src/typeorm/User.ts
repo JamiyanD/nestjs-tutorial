@@ -6,7 +6,7 @@ export class User {
     @PrimaryGeneratedColumn({
         type: 'bigint',
     })
-    id: number;
+    id: any;
 
     @Column({
         nullable: false,

@@ -15,4 +15,5 @@ export declare class UsersService {
     update(id: number, updateUserDto: UpdateUserDto): string;
     remove(id: number): string;
     getUserById(id: number): void;
+    findUserByUsername(username: string): Promise<UserEntity[]>;
 }

@@ -18,7 +18,7 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({
         type: 'bigint',
     }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], User.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({

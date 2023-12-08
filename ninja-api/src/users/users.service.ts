@@ -43,4 +43,8 @@ export class UsersService {
     // return this.fakeUsers.find((user) => user.id === id)
     
   }
+
+  findUserByUsername(username: string) {
+    return this.userRepository.findBy({ username })
+  }
 }

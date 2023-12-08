@@ -14,6 +14,7 @@ const ninjas_module_1 = require("./ninjas/ninjas.module");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("./typeorm");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,7 +29,7 @@ exports.AppModule = AppModule = __decorate([
                 database: 'nestjs',
                 entities: typeorm_2.default,
                 synchronize: true
-            })],
+            }), auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

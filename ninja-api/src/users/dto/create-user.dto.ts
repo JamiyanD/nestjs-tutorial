@@ -7,7 +7,7 @@ export class CreateUserDto {
     @MinLength(3)
     username: string;
 
-    @Exclude()
+    // @Exclude()
     password: string
 
     email:string
