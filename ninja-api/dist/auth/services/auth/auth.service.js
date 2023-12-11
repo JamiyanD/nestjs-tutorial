@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("../../../users/users.service");
+const bcrypt_1 = require("../../../utils/bcrypt");
 let AuthService = class AuthService {
     constructor(userService) {
         this.userService = userService;
@@ -22,10 +23,17 @@ let AuthService = class AuthService {
     async validateUser(username, password) {
         console.log('Inside validateUser');
         const userDB = await this.userService.findUserByUsername(username);
-        if (userDB && userDB[0].password === password) {
-            console.log('User Validation Success!');
-            console.log(userDB);
-            return userDB;
+        console.log(userDB);
+        if (userDB) {
+            const matched = (0, bcrypt_1.comparePasswords)(password, userDB[0].password);
+            if (matched) {
+                console.log('User Validation Success!');
+                return userDB;
+            }
+            else {
+                console.log('Passwords do not watch');
+                return null;
+            }
         }
         console.log('User Validation Failed!');
         return null;

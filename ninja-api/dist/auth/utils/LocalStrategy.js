@@ -19,16 +19,14 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("../services/auth/auth.service");
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
-        super({
-            usernameField: 'email'
-        });
+        super();
         this.authService = authService;
     }
-    async validate(email, password) {
+    async validate(username, password) {
         console.log('Inside Localstrategy');
-        console.log(email);
+        console.log(username);
         console.log(password);
-        const user = this.authService.validateUser(email, password);
+        const user = this.authService.validateUser(username, password);
         if (!user) {
             throw new common_1.UnauthorizedException();
         }

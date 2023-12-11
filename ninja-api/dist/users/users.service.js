@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const typeorm_3 = require("../typeorm");
+const bcrypt_1 = require("../utils/bcrypt");
 let UsersService = class UsersService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -27,7 +28,9 @@ let UsersService = class UsersService {
         ];
     }
     create(createUserDto) {
-        const newUser = this.userRepository.create(createUserDto);
+        const password = (0, bcrypt_1.encodePassword)(createUserDto.password);
+        console.log(password);
+        const newUser = this.userRepository.create({ ...createUserDto, password });
         return this.userRepository.save(newUser);
     }
     findAll() {
