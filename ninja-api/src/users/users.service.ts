@@ -50,4 +50,9 @@ export class UsersService {
   findUserByUsername(username: string) {
     return this.userRepository.findBy({ username })
   }
+
+  findUserById(id: number) {
+    console.log(id)
+    return this.userRepository.findBy({id})
+  }
 }

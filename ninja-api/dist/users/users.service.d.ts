@@ -16,4 +16,5 @@ export declare class UsersService {
     remove(id: number): string;
     getUserById(id: number): void;
     findUserByUsername(username: string): Promise<UserEntity[]>;
+    findUserById(id: number): Promise<UserEntity[]>;
 }

@@ -15,12 +15,15 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("../typeorm");
 const LocalStrategy_1 = require("./utils/LocalStrategy");
 const passport_1 = require("@nestjs/passport");
+const SessionSerializer_1 = require("./utils/SessionSerializer");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([typeorm_2.User]), passport_1.PassportModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([typeorm_2.User]), passport_1.PassportModule.register({
+                session: true
+            })],
         controllers: [auth_controller_1.AuthController],
         providers: [
             {
@@ -31,7 +34,8 @@ exports.AuthModule = AuthModule = __decorate([
                 provide: 'USER_SERVICE',
                 useClass: users_service_1.UsersService
             },
-            LocalStrategy_1.LocalStrategy
+            LocalStrategy_1.LocalStrategy,
+            SessionSerializer_1.SessionSerializer
         ]
     })
 ], AuthModule);

@@ -50,6 +50,10 @@ let UsersService = class UsersService {
     findUserByUsername(username) {
         return this.userRepository.findBy({ username });
     }
+    findUserById(id) {
+        console.log(id);
+        return this.userRepository.findBy({ id });
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

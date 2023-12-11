@@ -14,21 +14,44 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
+const LocalGuard_1 = require("../../utils/LocalGuard");
 let AuthController = class AuthController {
-    async login(req) {
+    async login() {
         return {};
+    }
+    async getAuthSession(session) {
+        console.log(session);
+        console.log(session.id);
+        session.authenticated = true;
+        return session;
+    }
+    async getAuthStatus(req) {
+        return req.body;
     }
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
+    (0, common_1.UseGuards)(LocalGuard_1.LocalAuthGuard),
     (0, common_1.Post)('login'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Get)(''),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "getAuthSession", null);
+__decorate([
+    (0, common_1.UseGuards)(LocalGuard_1.AuthenticatedGuard),
+    (0, common_1.Get)('status'),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "login", null);
+], AuthController.prototype, "getAuthStatus", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth')
 ], AuthController);

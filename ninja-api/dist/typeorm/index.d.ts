@@ -1,4 +1,5 @@
 import { User } from './User';
-declare const entities: (typeof User)[];
-export { User };
+import { SessionEntity } from './Session';
+declare const entities: (typeof User | typeof SessionEntity)[];
+export { User, SessionEntity };
 export default entities;
