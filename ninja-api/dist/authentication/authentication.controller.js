@@ -12,38 +12,43 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NinjasController = void 0;
+exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const ninjas_service_1 = require("./ninjas.service");
-let NinjasController = class NinjasController {
-    constructor(ninjasService) {
-        this.ninjasService = ninjasService;
+const auth_service_1 = require("../auth/services/auth/auth.service");
+const login_ninja_dto_1 = require("./dto/login-ninja.dto");
+let AuthController = class AuthController {
+    constructor(authService) {
+        this.authService = authService;
     }
-    async getAllNinjas(request, response) {
+    async login(request, response, LoginDto) {
         try {
-            const result = await this.ninjasService.getAllNinjas();
+            const result = await this.authService.login(LoginDto);
             return response.status(200).json({
-                status: 'Ok!',
-                message: 'Successfully fetch data!',
+                status: 'Ok',
+                message: 'Sucesfully login!',
                 result: result
             });
         }
         catch (err) {
-            return response.status(500);
+            return response.status(500).json({
+                status: 'Error!',
+                message: 'Internal Server Error!'
+            });
         }
     }
 };
-exports.NinjasController = NinjasController;
+exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, login_ninja_dto_1.LoginDto]),
     __metadata("design:returntype", Promise)
-], NinjasController.prototype, "getAllNinjas", null);
-exports.NinjasController = NinjasController = __decorate([
-    (0, common_1.Controller)('ninjas'),
-    __metadata("design:paramtypes", [ninjas_service_1.NinjasService])
-], NinjasController);
-//# sourceMappingURL=ninjas.controller.js.map
+], AuthController.prototype, "login", null);
+exports.AuthController = AuthController = __decorate([
+    (0, common_1.Controller)('/auth'),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], AuthController);
+//# sourceMappingURL=authentication.controller.js.map

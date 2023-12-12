@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("../../../users/users.service");
 const bcrypt_1 = require("../../../utils/bcrypt");
 let AuthService = class AuthService {
+    login() {
+        throw new Error("Method not implemented.");
+    }
     constructor(userService) {
         this.userService = userService;
     }

@@ -5,51 +5,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NinjasService = void 0;
 const common_1 = require("@nestjs/common");
+const prisma_service_1 = require("../prisma.service");
 let NinjasService = class NinjasService {
-    constructor() {
-        this.ninjas = [
-            { id: 0, name: 'ninjaA', weapon: 'stars' },
-            { id: 1, name: 'ninjaB', weapon: 'nunchuks' }
-        ];
+    constructor(prisma) {
+        this.prisma = prisma;
     }
-    getNinjas(weapon) {
-        return this.ninjas;
+    async getAllNinjas() {
+        return this.prisma.ninjas.findMany();
     }
-    getNinja(id) {
-        const ninja = this.ninjas.find((ninja) => ninja.id === id);
-        if (!ninja) {
-            throw new Error('ninja not found');
-        }
-        return ninja;
-    }
-    createNinja(createNinjaDto) {
-        const newNinja = {
-            ...createNinjaDto,
-            id: Date.now(),
-        };
-        this.ninjas.push(newNinja);
-        return newNinja;
-    }
-    updateNinja(id, updateNinjaDto) {
-        this.ninjas = this.ninjas.map((ninja) => {
-            console.log(ninja.id);
-            if (ninja.id === id) {
-                return { ...ninja, ...updateNinjaDto };
+    async createNinja(data) {
+        const existing = await this.prisma.ninjas.findUnique({
+            where: {
+                username: data.username
             }
         });
-        return this.getNinja(id);
-    }
-    removeNinja(id) {
-        const toBeRemoved = this.getNinja(id);
-        this.ninjas = this.ninjas.filter((ninja) => ninja.id !== id);
-        return toBeRemoved;
+        if (existing) {
+            throw new common_1.ConflictException('username alreade exists');
+        }
+        return this.prisma.ninjas.create({
+            data
+        });
     }
 };
 exports.NinjasService = NinjasService;
 exports.NinjasService = NinjasService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], NinjasService);
 //# sourceMappingURL=ninjas.service.js.map

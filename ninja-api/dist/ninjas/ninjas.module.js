@@ -10,13 +10,14 @@ exports.NinjasModule = void 0;
 const common_1 = require("@nestjs/common");
 const ninjas_controller_1 = require("./ninjas.controller");
 const ninjas_service_1 = require("./ninjas.service");
+const prisma_service_1 = require("../prisma.service");
 let NinjasModule = class NinjasModule {
 };
 exports.NinjasModule = NinjasModule;
 exports.NinjasModule = NinjasModule = __decorate([
     (0, common_1.Module)({
         controllers: [ninjas_controller_1.NinjasController],
-        providers: [ninjas_service_1.NinjasService]
+        providers: [ninjas_service_1.NinjasService, prisma_service_1.PrismaService]
     })
 ], NinjasModule);
 //# sourceMappingURL=ninjas.module.js.map

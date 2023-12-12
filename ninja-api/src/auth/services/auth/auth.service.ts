@@ -4,6 +4,9 @@ import { comparePasswords } from 'src/utils/bcrypt';
 
 @Injectable()
 export class AuthService {
+    login() {
+        throw new Error("Method not implemented.");
+    }
     constructor(
         @Inject('USER_SERVICE') private readonly userService: UsersService,
     ) {}

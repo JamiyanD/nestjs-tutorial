@@ -1,30 +1,8 @@
-import { CreateNinjaDto } from './dto/create-ninja.dto';
-import { UpdateNinjaDto } from './dto/update-ninja.dto';
+import { PrismaService } from 'src/prisma.service';
+import { Ninjas } from './ninjas.model';
 export declare class NinjasService {
-    private ninjas;
-    getNinjas(weapon?: 'stars' | 'nunchucks'): {
-        id: number;
-        name: string;
-        weapon: string;
-    }[];
-    getNinja(id: number): {
-        id: number;
-        name: string;
-        weapon: string;
-    };
-    createNinja(createNinjaDto: CreateNinjaDto): {
-        id: number;
-        name: string;
-        weapon: "stars" | "nunchucks";
-    };
-    updateNinja(id: number, updateNinjaDto: UpdateNinjaDto): {
-        id: number;
-        name: string;
-        weapon: string;
-    };
-    removeNinja(id: number): {
-        id: number;
-        name: string;
-        weapon: string;
-    };
+    private prisma;
+    constructor(prisma: PrismaService);
+    getAllNinjas(): Promise<Ninjas[]>;
+    createNinja(data: Ninjas): Promise<Ninjas>;
 }
