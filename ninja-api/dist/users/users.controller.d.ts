@@ -4,12 +4,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    create(createUserDto: CreateUserDto): Promise<import("../typeorm").User>;
+    create(createUserDto: CreateUserDto): void;
     findAll(): {
-        username: string;
-        password: string;
+        id: number;
+        name: string;
+        email: string;
     }[];
-    findOne(id: string): string;
+    findOne(id: number): {
+        id: number;
+        name: string;
+        email: string;
+    };
     update(id: string, updateUserDto: UpdateUserDto): string;
     remove(id: string): string;
     getById(id: number): void;

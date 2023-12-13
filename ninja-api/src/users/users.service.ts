@@ -8,30 +8,29 @@ import { encodePassword } from 'src/utils/bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(UserEntity) 
-  private readonly userRepository: Repository<UserEntity>
-  ) {
+  // constructor(@InjectRepository(UserEntity) 
+  // private readonly userRepository: Repository<UserEntity>
+  // ) {}
 
-  }
   private fakeUsers = [
-    { username: 'Anson', password: 'anson'},
-    { username: 'Cory', password: 'cory'},
-    { username: 'Greg', password: 'greg'},
+    { id: 1, name: 'Anson', email: 'jaya@itrip.mn'},
+    { id: 2, name: 'Cory', email: 'khagi@itrip.mn'},
+    { id: 3, name: 'Greg', email: 'greg@itrip.mn'},
   ]
 
   create(createUserDto: CreateUserDto) {
-    const password = encodePassword(createUserDto.password)
-    console.log(password)
-    const newUser = this.userRepository.create({...createUserDto, password})
-    return this.userRepository.save(newUser);
+    this.fakeUsers.push(createUserDto);
+    // const password = encodePassword(createUserDto.password)
+    // const newUser = this.userRepository.create({...createUserDto, password})
+    // return this.userRepository.save(newUser);
   }
 
   findAll() {
     return this.fakeUsers;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  findOne(id: number) {
+    return this.fakeUsers.find((user) => user.id === id)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -48,11 +47,11 @@ export class UsersService {
   }
 
   findUserByUsername(username: string) {
-    return this.userRepository.findBy({ username })
+    // return this.userRepository.findBy({ username })
   }
 
   findUserById(id: number) {
     console.log(id)
-    return this.userRepository.findBy({id})
+    // return this.userRepository.findBy({id})
   }
 }

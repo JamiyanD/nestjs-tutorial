@@ -13,7 +13,7 @@ export class UsersController {
 
   @Post()
   @UsePipes(new ValidationPipe())
-  create(@Body(ValidateCreateUserPipe) createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     console.log(createUserDto)
     return this.usersService.create(createUserDto);
   }
@@ -25,7 +25,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     const user = this.usersService.findOne(id);
     if(!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
     return  user

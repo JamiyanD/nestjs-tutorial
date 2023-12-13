@@ -8,27 +8,23 @@ import { SessionEntity } from './typeorm';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const sessionRepository = getRepository(SessionEntity)
-  const cors = {
-    origin: ['http://localhost:3000'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'
-  }
-  app.enableCors(cors)
+  // const sessionRepository = getRepository(SessionEntity)
+
   app.setGlobalPrefix('api');
-  app.use(session({
-    name: 'NESTJS_SESSION_ID',
-    secret: 'Dadsa',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 60000,
-    },
-    store: new TypeormStore({
-      cleanupLimit: 10,
-    }).connect(sessionRepository)
-  }))
-  app.use(passport.initialize())
-  app.use(passport.session())
+  // app.use(session({
+  //   name: 'NESTJS_SESSION_ID',
+  //   secret: 'Dadsa',
+  //   resave: false,
+  //   saveUninitialized: false,
+  //   cookie: {
+  //     maxAge: 60000,
+  //   },
+  //   store: new TypeormStore({
+  //     cleanupLimit: 10,
+  //   }).connect(sessionRepository)
+  // }))
+  // app.use(passport.initialize())
+  // app.use(passport.session())
   await app.listen(3000);
 }
 bootstrap();

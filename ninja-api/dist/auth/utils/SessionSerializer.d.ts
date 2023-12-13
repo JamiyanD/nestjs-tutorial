@@ -5,5 +5,5 @@ export declare class SessionSerializer extends PassportSerializer {
     private readonly userService;
     constructor(userService: UsersService);
     serializeUser(user: User, done: (err: any, user: User) => void): void;
-    deserializeUser(user: User, done: (err: any, user: User) => void): Promise<User[]>;
+    deserializeUser(user: User, done: (err: any, user: User) => void): Promise<void>;
 }
