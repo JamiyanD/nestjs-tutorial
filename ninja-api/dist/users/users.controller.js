@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
-const users_guard_1 = require("./users.guard");
+const UserNotFound_exception_1 = require("./exceptions/UserNotFound.exception");
 const HttpException_filter_1 = require("./filters/HttpException.filter");
 let UsersController = class UsersController {
     constructor(usersService) {
@@ -43,6 +43,12 @@ let UsersController = class UsersController {
         return this.usersService.remove(+id);
     }
     getById(id) {
+        const user = this.usersService.getUserById(id);
+        if (user)
+            return user;
+        else {
+            throw new UserNotFound_exception_1.UserNotFoundException('bhq bnaaa', 500);
+        }
     }
 };
 exports.UsersController = UsersController;
@@ -56,7 +62,6 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UseGuards)(users_guard_1.UsersGuard),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
@@ -84,7 +89,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 __decorate([
-    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     (0, common_1.UseFilters)(HttpException_filter_1.HttpExceptionFilter),
     (0, common_1.Get)('id/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

@@ -15,7 +15,11 @@ export declare class UsersService {
     };
     update(id: number, updateUserDto: UpdateUserDto): string;
     remove(id: number): string;
-    getUserById(id: number): void;
+    getUserById(id: number): {
+        id: number;
+        name: string;
+        email: string;
+    };
     findUserByUsername(username: string): void;
     findUserById(id: number): void;
 }

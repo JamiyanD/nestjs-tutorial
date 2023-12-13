@@ -19,7 +19,7 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(UsersGuard)
+  // @UseGuards(UsersGuard)
   findAll() {
     return this.usersService.findAll()
   }
@@ -41,14 +41,14 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  // @UseInterceptors(ClassSerializerInterceptor)
   @UseFilters(HttpExceptionFilter)
   @Get('id/:id')
   getById(@Param('id', ParseIntPipe) id: number) {
-    // const user = this.usersService.getUserById(id)
-    // if (user) return  user
-    // else {
-    //   throw new UserNotFoundException();
-    // }
+    const user = this.usersService.getUserById(id)
+    if (user) return  user;
+    else {
+      throw new UserNotFoundException('bhq bnaaa', 500);
+    }
   }
 }

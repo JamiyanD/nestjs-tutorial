@@ -4,7 +4,7 @@ exports.UserNotFoundException = void 0;
 const common_1 = require("@nestjs/common");
 class UserNotFoundException extends common_1.HttpException {
     constructor(msg, status) {
-        super(msg || 'User wewNot Found', status || common_1.HttpStatus.BAD_REQUEST);
+        super(msg || 'User bhq bna', status || common_1.HttpStatus.BAD_REQUEST);
     }
 }
 exports.UserNotFoundException = UserNotFoundException;

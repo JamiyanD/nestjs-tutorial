@@ -10,7 +10,6 @@ exports.UsersMiddleware = void 0;
 const common_1 = require("@nestjs/common");
 let UsersMiddleware = class UsersMiddleware {
     use(req, res, next) {
-        console.log('Middleware');
         const { authorization } = req.headers;
         if (!authorization)
             throw new common_1.HttpException('No Authorization Token', common_1.HttpStatus.FORBIDDEN);

@@ -17,5 +17,9 @@ export declare class UsersController {
     };
     update(id: string, updateUserDto: UpdateUserDto): string;
     remove(id: string): string;
-    getById(id: number): void;
+    getById(id: number): {
+        id: number;
+        name: string;
+        email: string;
+    };
 }

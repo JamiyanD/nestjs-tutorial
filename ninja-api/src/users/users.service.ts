@@ -42,7 +42,7 @@ export class UsersService {
   }
 
   getUserById(id: number) {
-    // return this.fakeUsers.find((user) => user.id === id)
+    return this.fakeUsers.find((user) => user.id === id)
     
   }
 
@@ -51,7 +51,7 @@ export class UsersService {
   }
 
   findUserById(id: number) {
-    console.log(id)
+
     // return this.userRepository.findBy({id})
   }
 }

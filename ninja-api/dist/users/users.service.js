@@ -32,11 +32,11 @@ let UsersService = class UsersService {
         return `This action removes a #${id} user`;
     }
     getUserById(id) {
+        return this.fakeUsers.find((user) => user.id === id);
     }
     findUserByUsername(username) {
     }
     findUserById(id) {
-        console.log(id);
     }
 };
 exports.UsersService = UsersService;
